@@ -1,28 +1,26 @@
 #!/usr/bin/env python3
-
+import os
 import joblib
 import pandas as pd
 import numpy as np
 import random
 import sys
 
-# ==========================================================
-# LOAD MODEL FILES
-# ==========================================================
-model = joblib.load("svm_model.pkl")
-le = joblib.load("label_encoder.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Load processed dataset
-df = pd.read_csv("final_data.csv")
+model = joblib.load(os.path.join(BASE_DIR, "svm_model.pkl"))
+le = joblib.load(os.path.join(BASE_DIR, "label_encoder.pkl"))
+
+df = pd.read_csv(os.path.join(BASE_DIR, "final_data.csv"))
+
 X = df.drop(columns=["AQI_Label"])
-
 # ==========================================================
 # BANNER
 # ==========================================================
 BANNER = """
 ╔══════════════════════════════════════════════════════════════╗
-║           🌍 AIR QUALITY PREDICTION SYSTEM 🌍               ║
-║      Machine Learning Based AQI Classification Project      ║
+║               AIR QUALITY PREDICTION SYSTEM                  ║
+║      Machine Learning Based AQI Classification Project       ║
 ╚══════════════════════════════════════════════════════════════╝
 """
 
@@ -137,7 +135,7 @@ def main():
             model_info()
 
         elif choice == '4':
-            print("\nThank you for using AQI Prediction System 🌍")
+            print("\nThank you for using AQI Prediction System ")
             sys.exit()
 
         else:

@@ -19,8 +19,8 @@ X = df.drop(columns=["AQI_Label"])
 # ==========================================================
 BANNER = """
 ╔══════════════════════════════════════════════════════════════╗
-║           🌍 AIR QUALITY PREDICTION SYSTEM 🌍               ║
-║      Machine Learning Based AQI Classification Project      ║
+║               AIR QUALITY PREDICTION SYSTEM                  ║
+║      Machine Learning Based AQI Classification Project       ║
 ╚══════════════════════════════════════════════════════════════╝
 """
 
@@ -135,7 +135,7 @@ def main():
             model_info()
 
         elif choice == '4':
-            print("\nThank you for using AQI Prediction System 🌍")
+            print("\nThank you for using AQI Prediction System ")
             sys.exit()
 
         else:
