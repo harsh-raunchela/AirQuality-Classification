@@ -13,7 +13,7 @@ le = joblib.load(os.path.join(BASE_DIR, "label_encoder.pkl"))
 
 df = pd.read_csv(os.path.join(BASE_DIR, "final_data.csv"))
 
-X = df.drop(columns=["AQI_Label"])
+X = df.drop(columns=["AQI_Label"]) 
 # ==========================================================
 # BANNER
 # ==========================================================
@@ -90,7 +90,7 @@ def model_info():
     print("""
  Best Model Used : Support Vector Machine (SVM)
 
- Accuracy        : 98.6%
+ SVM             : 98.6%
  Logistic Reg.   : 97%
  KNN             : 78%
 
