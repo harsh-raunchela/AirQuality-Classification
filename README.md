@@ -6,6 +6,7 @@ An end-to-end Machine Learning project that predicts **Air Quality Index (AQI) c
 
 ## 📋 Table of Contents
 - [Project Overview](#project-overview)
+- [Web Application Architecture](#-web-application-architecture)
 - [AQI Categories](#aqi-categories)
 - [Project Structure](#project-structure)
 - [Dataset](#dataset)
@@ -26,10 +27,32 @@ This project builds a complete machine learning pipeline to classify air quality
 - Feature engineering & selection
 - Training 3 classification models
 - Hyperparameter tuning with GridSearchCV
+- Flask REST API serving serialized ML inference
+- Interactive frontend designed with **Material 3 Expressive** principles
 - Full evaluation with metrics, confusion matrix & ROC curve
 - Saved models for instant prediction (no retraining needed)
 
 ---
+
+
+## 🌐 Web Application Architecture
+
+The system features an interactive web application allowing users to submit environmental sensor metrics and receive instant model predictions.
+
+### 🎨 Frontend (`web application.html`)
+- **Design Language:** Implements **Google's Material 3 Expressive** design system (dynamic color tokens, 28px rounded surface containers, expressive typography, and pill buttons).
+- **Step-by-Step Wizard:** Interactive 19-step wizard with real-time percentage progress indicators to guide input entry.
+- **Dynamic Result Card:** Visual badge rendering color-coded health impact levels (*Good*, *Satisfactory*, *Moderate*, *Poor*, *Very Poor*, *Severe*).
+- **Asynchronous Execution:** Built with vanilla JS (`fetch` API) to communicate with the REST API without reloading the page.
+
+### ⚡ Backend (`app.py`)
+- **API Framework:** Powered by **Flask** with `Flask-CORS` for cross-origin client communication.
+- **Model Inference:** Loads saved `.pkl` model via `joblib` and evaluates input data in real time.
+- **Feature Alignment:** Auto-detects model feature names (`model.feature_names_in_`) to match exact column order and casing.
+- **Endpoint:** `POST /predict` — Accepts 19-feature JSON payloads and returns predicted AQI categories.
+
+---
+
 
 ## 🟢 AQI Categories
 
@@ -49,6 +72,10 @@ This project builds a complete machine learning pipeline to classify air quality
 ```
 air-quality-prediction/
 │
+├── 🌐 index.html                        # Material 3 Expressive Web Frontend
+├── ⚡ app.py                            # Flask REST API Backend
+├── 🤖 knn.pklux / svm_model.pkl         # Trained Model Binary
+|
 ├── 📓 air_quality_preprocessing.ipynb   # Data cleaning & feature engineering
 ├── 📓 air_quality_model_training.ipynb  # Model training & evaluation
 ├── 📓 project_demo.ipynb                # Demo notebook for predictions
@@ -112,6 +139,9 @@ Evaluation
   • ROC Curve (AUC)
         ↓
 Best Model → SVM (98.6% accuracy) 🏆
+        ↓
+Deployment
+• Saved Best Model → Served via Flask API & Material 3 UI 
 ```
 
 ---
@@ -150,6 +180,15 @@ Best Model → SVM (98.6% accuracy) 🏆
 | `seaborn` | Heatmaps & visualizations |
 | `joblib` | Saving & loading trained models |
 
+--------------------------------
+
+| Layer | Technology | Purpose |
+|-------|------------|---------|
+| **Frontend** | HTML5, CSS3, JavaScript (ES6) | Material 3 Expressive web application |
+| **Backend** | Python, Flask, Flask-CORS | REST API serving model inference |
+| **Machine Learning** | scikit-learn, joblib | Model training, pipeline tuning, and serialization |
+| **Data Processing** | pandas, numpy | Dataset cleaning, vector transformation, feature extraction |
+| **Visualization** | matplotlib, seaborn | Exploratory data analysis & confusion matrices |
 ---
 
 ## 🚀 How to Run
@@ -162,7 +201,7 @@ cd air-quality-prediction
 
 ### 2. Install dependencies
 ```bash
-pip install pandas numpy scikit-learn matplotlib seaborn joblib
+pip install flask flask-cors pandas numpy scikit-learn matplotlib seaborn joblib
 ```
 
 ### 3. Run notebooks in order
@@ -170,6 +209,16 @@ pip install pandas numpy scikit-learn matplotlib seaborn joblib
 Step 1 → air_quality_preprocessing.ipynb
 Step 2 → air_quality_model_training.ipynb
 Step 3 → project_demo.ipynb  (for predictions)
+```
+### 4. Launch the Backend Server
+```
+Bash
+python app.py
+The API server will run at http://127.0.0.1:5000.
+```
+### 5. Launch the Web-app
+```
+Double-click web_application.html or open it in any modern browser to use the interactive application.
 ```
 
 > ⚡ **Skip retraining:** The trained models are already saved as `.pkl` files.
@@ -216,6 +265,8 @@ SVM (Best Model)    → Severe
 **Harsh Raunchela **
 - GitHub: https://github.com/harsh-raunchela
 
+**Devansh Dangwal **
+- Github: https://github.com/Nickyyayy
 ---
 
 ## 📄 License
